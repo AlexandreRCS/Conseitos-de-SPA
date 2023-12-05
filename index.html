@@ -7,12 +7,49 @@
 </head>
 <body>
     <nav>
-        <a href="/">Home</a>
-        <a href="/about">Sobre</a>
-        <a href="/contatc">Contato</a>
-        <a href="404">404</a>
+        <a href="/" onclick="route()">Home</a>
+        <a href="/about" onclick="route()">Sobre</a>
+        <a href="/contatc" onclick="route()">Contato</a>
+        <a href="404" onclick="route()">404</a>
     </nav>
 
     <div id="app"></div>
+
+    <script>
+
+        const routes = {
+            "/":"pages/home.html",
+            "/about": "pages/about.html",
+            "/contact": "pages/contact.html",
+            404: "404.html"
+        }
+
+        function route(event){
+            event = event || window.event
+
+            event.preventDefault()
+
+            window.history.pushState({}, "", event.target.href)
+
+            handle()
+        }
+
+        function handle(){
+            const {pathname} = window.location
+            const route = routes[pathname] || routes[404]
+            console.log("antes do fetch")
+            // FETCH PROMETE QUE VAI BUSCAR UMA ROTA
+            fetch(route)
+            // THEN :  ENTÀO QUANDO CONCLUIR EXECUTA ESSA FUNÇÀO
+            .then(data => data.text()
+            // O DATA TEXT E RETONA OS DADOS DE FORMA AUTOMATICA PARA THEN
+            // O HTMT E O NOME DO DADO NESSE THEN MAIS PODE SER QUALQUER NOME
+            ).then(html => console.log(html))
+
+
+            console.log(route)
+        }
+
+    </script>
 </body>
 </html>
