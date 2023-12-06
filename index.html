@@ -37,18 +37,18 @@
         function handle(){
             const {pathname} = window.location
             const route = routes[pathname] || routes[404]
-            console.log("antes do fetch")
             // FETCH PROMETE QUE VAI BUSCAR UMA ROTA
             fetch(route)
             // THEN :  ENTÀO QUANDO CONCLUIR EXECUTA ESSA FUNÇÀO
             .then(data => data.text()
             // O DATA TEXT E RETONA OS DADOS DE FORMA AUTOMATICA PARA THEN
             // O HTMT E O NOME DO DADO NESSE THEN MAIS PODE SER QUALQUER NOME
-            ).then(html => console.log(html))
+            ).then(html => {
 
-
-            console.log(route)
+            })
         }
+        
+        handle()
 
     </script>
 </body>
