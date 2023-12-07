@@ -32,3 +32,4 @@ function handle(){
 handle()
 
 window.onpopstate = () => handle()
+window.route = () => route()
