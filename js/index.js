@@ -1,35 +1,24 @@
-const routes = {
-    "/":"pages/home.html",
-    "/about": "pages/about.html",
-    "/contact": "pages/contact.html",
-    404: "pages/404.html"
-}
+import { Router } from "./route.js";
 
-function route(event){
-    event = event || window.event
 
-    event.preventDefault()
+const router = new Router()
 
-    window.history.pushState({}, "", event.target.href)
+router.add("/","pages/home.html",)
+router.add("/about", "pages/about.html")
+router.add("/contact", "pages/contact.html")
+router.add( 404, "pages/404.html")
 
-    handle()
-}
+// const routes = {
+//     "/":"pages/home.html",
+//     "/about": "pages/about.html",
+//     "/contact": "pages/contact.html",
+//     404: "pages/404.html"
+// }
 
-function handle(){
-    const {pathname} = window.location
-    const route = routes[pathname] || routes[404]
-    // FETCH PROMETE QUE VAI BUSCAR UMA ROTA
-    fetch(route)
-    // THEN :  ENTÀO QUANDO CONCLUIR EXECUTA ESSA FUNÇÀO
-    .then(data => data.text()
-    // O DATA TEXT E RETONA OS DADOS DE FORMA AUTOMATICA PARA THEN
-    // O HTMT E O NOME DO DADO NESSE THEN MAIS PODE SER QUALQUER NOME
-    ).then(html => {
-        document.querySelector('#app').innerHTML = html
-    })
-}
 
-handle()
+router.handle()
+// window.onpopstate = () => handle()
+// window.route = () => route()
 
-window.onpopstate = () => handle()
-window.route = () => route()
+window.onpopstate = ()=> router.handle()
+window.router = ()=> router.route()
